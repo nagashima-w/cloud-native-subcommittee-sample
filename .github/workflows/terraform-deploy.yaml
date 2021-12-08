@@ -1,0 +1,52 @@
+name: Auto Terraform Apply
+
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - "terraform/**"
+      - ".github/workflows/terraform-deploy.yaml"
+
+permissions:
+  # for gcp/auth setting
+  # ドキュメントを読む限りデフォルトで許可されているはずなのに、なぜか明示的に権限を与えないとエラーになった
+  id-token: "write"
+  # 1つでも明示的に権限を与えるとそれ以外の権限がなくなってしまうので必要な権限を個別に付与
+  contents: "read"
+
+jobs:
+  terraform-cd:
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_ID: My First Project
+      WORKING-DIRECTORY: ./terraform/
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: setup gcp credentials
+        uses: google-github-actions/auth@v0.4.0
+        with:
+          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: cloudnative-demo-account@${{ env.PROJECT_ID }}.iam.gserviceaccount.com
+          create_credentials_file: true
+          activate_credentials_file: true
+        continue-on-error: false
+
+      - name: setup terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: "1.0.11"
+        continue-on-error: false
+
+      - name: terraform init
+        shell: bash
+        working-directory: ${{ env.WORKING-DIRECTORY }}
+        run: terraform init -no-color
+        continue-on-error: false
+
+      - name: terraform apply
+        shell: bash
+        working-directory: ${{ env.WORKING-DIRECTORY }}
+        run: terraform apply -auto-approve

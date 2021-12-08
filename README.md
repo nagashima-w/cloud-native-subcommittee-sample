@@ -6,18 +6,8 @@ Google Cloudエンタープライズユーザー会クラウドネイティブ�
 
 ```bash
 .
-├── kubernetes #簡単なマニフェスト
-│   └── pod.yaml
+├── .github
+│   └── workflows #GitHub Actionsのワークフロー定義
+├── kubernetes #サンプルマニフェスト
 └── terraform #GKEクラスターデプロイ用のTerraformコード
-    └── main.tf
 ```
-
-## デモの内容
-
-- 事前準備
-  - GCP側でWorkload Identity連携の設定をしておく
-  - GKEクラスターを構築しておく
-- 当日のデモでやること
-  - `feature/add-manifests`→`main`へのPRをマージする
-  - ワークフローを眺めてマージされることを確認する
-  - ワークフロー定義のステップごとに何してるか解説
