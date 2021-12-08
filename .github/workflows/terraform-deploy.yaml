@@ -19,7 +19,7 @@ jobs:
   terraform-cd:
     runs-on: ubuntu-latest
     env:
-      PROJECT_ID: My First Project
+      PROJECT_ID: my-first-project-12345678
       WORKING-DIRECTORY: ./terraform/
     steps:
       - name: checkout
