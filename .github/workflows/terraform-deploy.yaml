@@ -17,6 +17,9 @@ permissions:
 
 jobs:
   terraform-cd:
+    defaults:
+      run:
+        working-directory: ./kubernetes/
     runs-on: ubuntu-latest
     env:
       PROJECT_ID: my-first-project-12345678
@@ -29,7 +32,7 @@ jobs:
         uses: google-github-actions/auth@v0.4.0
         with:
           workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: cloudnative-demo-account@${{ env.PROJECT_ID }}.iam.gserviceaccount.com
+          service_account: cloudnative-sample-account@${{ env.PROJECT_ID }}.iam.gserviceaccount.com
           create_credentials_file: true
           activate_credentials_file: true
         continue-on-error: false
@@ -42,11 +45,9 @@ jobs:
 
       - name: terraform init
         shell: bash
-        working-directory: ${{ env.WORKING-DIRECTORY }}
         run: terraform init -no-color
         continue-on-error: false
 
       - name: terraform apply
         shell: bash
-        working-directory: ${{ env.WORKING-DIRECTORY }}
         run: terraform apply -auto-approve
