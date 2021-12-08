@@ -1,6 +1,6 @@
 # cloud-native-subcommittee-demo
 
-Google Cloudエンタープライズユーザー会クラウドネイティブ分科会のLTで触れたサンプルコード置き場です
+Google Cloudエンタープライズユーザー会クラウドネイティブ分科会のLTで紹介したサンプルコード置き場です
 
 ## 実現していること
 
