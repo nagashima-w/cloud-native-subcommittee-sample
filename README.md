@@ -9,8 +9,8 @@ Google Cloudエンタープライズユーザー会クラウドネイティブ�
 
 ## 実現していること
 
-- `terraform/`が更新されたときに自動でGCPに対して`terraform apply`を実行
-- `kubernetes/`が更新されたときに自動でGKEクラスター上で`kubectl apply`を実行
+- `terraform/`が更新されたときに自動でGCPに対して`terraform apply`を実行し、GKEクラスターとノードプールを作成
+- `kubernetes/`が更新されたときに自動でGKEクラスターに対して`kubectl apply`を実行し、podをデプロイ
 
 ## フォルダ階層
 
